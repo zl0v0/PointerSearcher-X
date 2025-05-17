@@ -13,14 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Rust
+      - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
       - name: Add iOS targets
         run: |
           rustup target add aarch64-apple-ios
 
-      - name: Build for aarch64 iOS
+      - name: Build libptrscan for iOS (aarch64)
         run: |
           cargo build --target aarch64-apple-ios --release
 
