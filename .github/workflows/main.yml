@@ -1,0 +1,31 @@
+name: Build iOS dylib
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Add iOS targets
+        run: |
+          rustup target add aarch64-apple-ios
+
+      - name: Build for aarch64 iOS
+        run: |
+          cargo build --target aarch64-apple-ios --release
+
+      - name: Upload dylib artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libptrscan-ios
+          path: target/aarch64-apple-ios/release/libptrscan.dylib
