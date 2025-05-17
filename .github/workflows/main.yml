@@ -27,7 +27,7 @@ jobs:
         run: cargo build --target aarch64-apple-ios --release
 
       - name: Upload compiled dylib artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: libptrscan-ios
           path: target/aarch64-apple-ios/release/libptrscan.dylib
