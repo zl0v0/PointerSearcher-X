@@ -10,24 +10,24 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Rust
+      - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
 
-      - name: Add iOS targets
+      - name: Add iOS target for Rust
         run: rustup target add aarch64-apple-ios
 
-      - name: Build libptrscan for iOS (aarch64)
+      - name: Build Rust dylib for iOS (aarch64)
         run: cargo build --target aarch64-apple-ios --release
 
-      - name: Upload dylib artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload compiled dylib artifact
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: libptrscan-ios
           path: target/aarch64-apple-ios/release/libptrscan.dylib
