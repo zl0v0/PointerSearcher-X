@@ -13,16 +13,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
 
       - name: Add iOS targets
-        run: |
-          rustup target add aarch64-apple-ios
+        run: rustup target add aarch64-apple-ios
 
       - name: Build libptrscan for iOS (aarch64)
-        run: |
-          cargo build --target aarch64-apple-ios --release
+        run: cargo build --target aarch64-apple-ios --release
 
       - name: Upload dylib artifact
         uses: actions/upload-artifact@v3
